@@ -22,6 +22,15 @@
       }
     ]
   },
+  "scripts": [
+    "scripts/foundryradio.js"
+  ],
+  "templates": [
+    "templates/foundryradio.html"
+  ],
+  "styles": [
+    "styles/foundryradio.css"
+  ],
   "socket": true,
   "url": "https://github.com/KaiibottAI/FoundryRadio",
   "packs": [
