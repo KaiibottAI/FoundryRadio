@@ -1,0 +1,42 @@
+{
+  "id": "foundry-radio",
+  "title": "Foundry Radio",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "11",
+    "verified": "11"
+  },
+  "description": "Hey there Mr. DJ, whatchu got on the track for us tonight?\nControl the music scene with style with FoundryRadio! Pop up the tunes and maybe pop some heads while you're at it! Perfect music for every occasion.",
+  "authors": [
+    {
+      "name": "Kaiibott",
+      "discord": "kaiibott",
+      "flags": {}
+    }
+  ],
+  "relationships": {
+    "requires": [
+      {
+        "id": "socketlib",
+        "type": "module"
+      }
+    ]
+  },
+  "socket": true,
+  "url": "https://github.com/KaiibottAI/FoundryRadio",
+  "packs": [
+    {
+      "name": "foundry-radio",
+      "label": "Foundry Radio",
+      "path": "packs/foundry-radio",
+      "type": "Macro",
+      "ownership": {
+        "PLAYER": "OBSERVER",
+        "ASSISTANT": "OWNER"
+      },
+      "flags": {}
+    }
+  ],
+  "manifest": "https://raw.githubusercontent.com/KaiibottAI/FoundryRadio/main/module.json",
+  "download": "https://github.com/KaiibottAI/FoundryRadio/releases/download/1.0.0/FoundryRadio.zip"
+}

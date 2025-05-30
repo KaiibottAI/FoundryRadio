@@ -1,0 +1,92 @@
+/* Default settings for the Foundry Radio */
+:root {
+	--radio-font-family: "Orbitron";
+}
+
+/* Different theme colours that seemed fun! */
+:root[data-radio-theme="classic"] {
+	--radio-background-color: #0F1E17;
+	--radio-dialogue-box-color: #0F1E17;
+	--radio-glow-color: #03FB8D;
+	--radio-text-color: #ffffff;
+	--radio-bar-on: #03FB8D;
+	--radio-bar-off: #397975;
+}
+
+:root[data-radio-theme="cyberpunk-red"] {
+	--radio-background-color: #000000;
+	--radio-dialogue-box-color: #ffffff;
+	--radio-glow-color: #d31919;
+	--radio-text-color: #d31919;
+	--radio-bar-on: #a81414;
+	--radio-bar-off: #540a0a;
+}
+
+:root[data-radio-theme="deep-blue"] {
+	--radio-background-color: #030056;
+	--radio-dialogue-box-color: #ffffff;
+	--radio-glow-color: #0900ff;
+	--radio-text-color: #0900ff;
+	--radio-bar-on: #0800e5;
+	--radio-bar-off: #04007f;
+}
+
+:root[data-radio-theme="fallout-nuclear"] {
+	--radio-background-color: #033000;
+	--radio-dialogue-box-color: #ffffff;
+	--radio-glow-color: #00ff00;
+	--radio-text-color: #00ff00;
+	--radio-bar-on: #00e500;
+	--radio-bar-off: #006600;
+}
+
+#foundry-radio .foundry-radio {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    padding: 20px;
+    border: 2px solid #888;
+    border-radius: 8px;
+    width: 300px;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+#foundry-radio .radio-header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+#foundry-radio .radio-controls label {
+    display: block;
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#foundry-radio #playlist-select {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#foundry-radio .track-controls {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+}
+
+#foundry-radio .track-controls button {
+    flex: 1;
+    margin: 0 2px;
+    padding: 5px;
+    background-color: var(--radio-background-color);
+    color: var(--radio-dialogue-box-color);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#foundry-radio .track-controls button:hover {
+    background-color: #555;
+}
+
+#foundry-radio #volume-slider {
+    width: 100%;
+}
