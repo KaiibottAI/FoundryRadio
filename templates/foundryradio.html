@@ -1,22 +1,28 @@
 <div class="foundry-radio">
   <div class="radio-header">
-    <h2>FoundryRadio</h2>
+    <h2>{{{FoundryRadioTitle}}}</h2>
+  </div>
+
+  <div class="radio-song">
+    <h3>{{{FoundryRadioSong}}}</h3>
   </div>
 
   <div class="radio-controls">
     <label for="playlist-select">Playlist:</label>
-    <select id="playlist-select">
-      <option value="">Loading...</option>
-    </select>
+    <select id="playlist-select"></select>
 
     <div class="track-controls">
-      <button id="play-btn">Play</button>
-      <button id="pause-btn">Pause</button>
       <button id="stop-btn">Stop</button>
+      <button id="play-btn">Play</button>
+      <button id="next-btn">Next</button>
     </div>
 
-    <label for="volume-slider">Volume</label>
-    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+    <div id="playlist-sounds">
+
+    </div>
+
+    <!-- <label for="volume-slider">Volume</label>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1"> -->
   </div>
   <div class="playlist">
   </div>

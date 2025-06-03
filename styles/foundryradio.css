@@ -1,57 +1,83 @@
 /* Default settings for the Foundry Radio */
 :root {
-	--radio-font-family: "Orbitron";
+    --radio-font-family: "Orbitron";
 }
 
 /* Different theme colours that seemed fun! */
 :root[data-radio-theme="mgs-codec"] {
-	--radio-background-color: #0F1E17;
-	--radio-button-text-color: #0F1E17;
-	--radio-button-color: #03FB8D;
-	--radio-text-color: #ffffff;
+    --radio-background-color: #0F1E17;
+    --radio-button-text-color: #0F1E17;
+    --radio-button-color: #03FB8D;
+    --radio-text-color: #ffffff;
 }
 
 :root[data-radio-theme="cyberpunk-red"] {
-	--radio-background-color: #000000;
-	--radio-button-text-color: #ffffff;
-	--radio-button-color: #d31919;
-	--radio-text-color: #d31919;
+    --radio-background-color: #000000;
+    --radio-button-text-color: #ffffff;
+    --radio-button-color: #d31919;
+    --radio-text-color: #d31919;
 }
 
 :root[data-radio-theme="cyberpunk-edgerunners"] {
-	--radio-background-color: #772289;
-	--radio-button-text-color: #f4d5fd;
-	--radio-button-color: #4bff21;
-	--radio-text-color: #000000;
+    --radio-background-color: #772289;
+    --radio-button-text-color: #f4d5fd;
+    --radio-button-color: #4bff21;
+    --radio-text-color: #000000;
 }
 
 :root[data-radio-theme="deep-blue"] {
-	--radio-background-color: #030056;
-	--radio-button-text-color: #ffffff;
-	--radio-button-color: #0900ff;
-	--radio-text-color: #0900ff;
+    --radio-background-color: #030056;
+    --radio-button-text-color: #ffffff;
+    --radio-button-color: #0900ff;
+    --radio-text-color: #0900ff;
 }
 
 :root[data-radio-theme="fallout-nuclear"] {
-	--radio-background-color: #033000;
-	--radio-button-text-color: #ffffff;
-	--radio-button-color: #00ff00;
-	--radio-text-color: #00ff00;
+    --radio-background-color: #033000;
+    --radio-button-text-color: #ffffff;
+    --radio-button-color: #00ff00;
+    --radio-text-color: #00ff00;
+}
+
+/* Colour the background the same as the window to not have a weird gap */
+#foundry-radio .window-content {
+    background: transparent;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    /* Prevent inner overflow */
 }
 
 #foundry-radio .foundry-radio {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background-color: var(--radio-background-color);
     color: var(--radio-text-color);
     padding: 20px;
     border: 2px solid #888;
     border-radius: 8px;
     width: 300px;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: var(--radio-font-family), 'Segoe UI', sans-serif;
+    overflow: hidden;
+    /* Prevent overflow from children */
 }
 
 #foundry-radio .radio-header {
     text-align: center;
     margin-bottom: 10px;
+}
+
+#foundry-radio .radio-song {
+    text-align: center;
+}
+
+#foundry-radio .radio-controls {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    overflow: hidden;
 }
 
 #foundry-radio .radio-controls label {
@@ -84,6 +110,12 @@
 
 #foundry-radio .track-controls button:hover {
     background-color: #555;
+}
+
+#foundry-radio .playlist-sounds {
+    flex: 1 1 0;
+    overflow-y: auto;
+    min-height: 0;
 }
 
 #foundry-radio #volume-slider {

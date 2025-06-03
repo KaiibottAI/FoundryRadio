@@ -2,22 +2,110 @@ const foundryRadioModuleName = 'foundry-radio'
 
 class FoundryRadio extends Application {
 
-    // Please help, I don't know how to get some default stuff to stick. I have it down in the ready hook since I can't figure it :D
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             id: foundryRadioModuleName,
             title: 'Foundry Radio',
             resizable: false,
-            width: 400,
-            height: 800,
+            width: 600,
+            height: 400,
             template: "modules/foundry-radio/templates/foundryradio.html",
             classes: ["foundry-radio"]
         });
     }
 
-    activeListeners(html) {
-        super.activeListeners(html);
+    getData() {
+        return {
+            FoundryRadioTitle: game.settings.get(foundryRadioModuleName, 'title'),
+            FoundryRadioSong: _getCurrentSound(_getPlaylist())?.name ?? 'No Song Playing'
+        }
     }
+
+    // activate not active, I am so dumb
+    // activateListeners(html) {
+    //     super.activateListeners(html);
+
+    //     // Select the button and bind the click event
+    //     html.find('#stop-btn').click(() => {
+    //         ui.notifications.warn(`${foundryRadioModuleName} | Stop sound!`)
+    //         _stopCurrentSound(_getPlaylist())
+    //     });
+    //     html.find('#next-btn').click(() => {
+    //         ui.notifications.warn(`${foundryRadioModuleName} | Next sound!`)
+    //         _nextSound(_getPlaylist())
+    //     });
+
+    //     // populate the playlist dropdown
+    //     const $select = html.find('#playlist-select');
+
+    //     for (const playlist of game.playlists.contents) {
+    //         const option = $(`<option value="${playlist.id}">${playlist.name}</option>`);
+    //         $select.append(option);
+    //     };
+
+    //     // populate the list of sounds in the radio
+    //     // const $sounds = html.find('#playlist-sounds');
+    //     $select.on('change', ev => {
+    //         this.selectedPlaylistId = ev.target.value;
+    //         this._renderSoundList(html);
+    //     });
+
+    // }
+
+    activateListeners(html) {
+        super.activateListeners(html);
+
+        // Bind buttons
+        html.find('#stop-btn').click(() => {
+            ui.notifications.warn(`${foundryRadioModuleName} | Stop sound!`);
+            _stopCurrentSound(_getPlaylist());
+        });
+        html.find('#next-btn').click(() => {
+            ui.notifications.warn(`${foundryRadioModuleName} | Next sound!`);
+            _nextSound(_getPlaylist());
+        });
+
+        // Populate playlist dropdown
+        const $select = html.find('#playlist-select');
+        $select.empty();
+
+        // If you want a placeholder option uncomment this:
+        // $select.append(`<option value="">Select Playlist</option>`);
+
+        // Add playlists
+        for (const playlist of game.playlists.contents) {
+            const option = $(`<option value="${playlist.id}">${playlist.name}</option>`);
+            $select.append(option);
+        }
+
+        // Select the first playlist by default (if any)
+        const firstPlaylist = game.playlists.contents[0];
+        if (firstPlaylist) {
+            $select.val(firstPlaylist.id);
+            this.selectedPlaylistId = firstPlaylist.id;
+            this._renderSoundList(html);
+        }
+
+        // Listen for changes
+        $select.on('change', ev => {
+            this.selectedPlaylistId = ev.target.value;
+            this._renderSoundList(html);
+        });
+    }
+
+
+    _renderSoundList(html) {
+        const playlist = game.playlists.get(this.selectedPlaylistId);
+        const $sounds = html.find('#playlist-sounds');
+        $sounds.empty();
+
+        if (!playlist) return;
+
+        for (const sound of playlist.sounds) {
+            $sounds.append(`<div class="playlist-sound">${sound.name}</div>`);
+        }
+    }
+
 };
 
 // open/close the Foundry Radio window
@@ -37,6 +125,7 @@ function applyRadioSkin(theme) {
     game.settings.set(foundryRadioModuleName, 'radioSkin', theme);
     document.documentElement.setAttribute('data-radio-theme', theme);
 };
+
 function updateRadioFont(selectedFont) {
     document.documentElement?.style.setProperty("--radio-font-family", `"${selectedFont}"`);
 };
@@ -46,22 +135,35 @@ function _getPlaylist() {
     return playlist ?? null;
 };
 
-function _getCurrentSong() {
-    const playlist = _getPlaylist();
+function _getCurrentSound(playlist) {
+    // const playlist = _getPlaylist();
     if (!playlist) return null;
 
-    const [currentSong] = playlist.sounds.filter(sound => sound.playing);
-    return currentSong ?? null;
+    const [currentSound] = playlist.sounds.filter(sound => sound.playing);
+    return currentSound ?? null;
 };
 
-async function _nextSong() {
-    const playlist = _getPlaylist();
+async function _nextSound(playlist) {
+    // const playlist = _getPlaylist();
     if (!playlist) {
         ui.notifications.warn("No playlist is currently playing.");
         return;
     };
 
     playlist.playNext();
+
+};
+
+function _getAvailablePlaylists() {
+    return game.playlists.map(p => p.name);
+};
+
+async function _stopCurrentSound(playlist) {
+
+    const currentSound = _getCurrentSound(playlist)
+    if (!currentSound) return null;
+
+    playlist.stopSound(currentSound);
 
 };
 
@@ -100,6 +202,15 @@ Hooks.once("init", () => {
         },
         requiresReload: true
     });
+
+});
+
+Hooks.on("updatePlaylist", () => {
+
+    // when the playlist Sound is getting updated, fire here
+    // ui.notifications.warn(`${foundryRadioModuleName} | Song updated to ${_getCurrentSound()}`)
+    const radioSongText = document.querySelector('.radio-song');
+    radioSongText.innerHTML = `<h3>${_getCurrentSound(_getPlaylist())?.name ?? 'No Song Playing'}</h3>`;
 
 });
 
