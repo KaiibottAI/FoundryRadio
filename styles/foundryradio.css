@@ -3,7 +3,7 @@
     --radio-font-family: "Orbitron";
 }
 
-/* Different theme colours that seemed fun! */
+/* Theme colors */
 :root[data-radio-theme="mgs-codec"] {
     --radio-background-color: #0F1E17;
     --radio-button-text-color: #0F1E17;
@@ -39,47 +39,68 @@
     --radio-text-color: #00ff00;
 }
 
-/* Colour the background the same as the window to not have a weird gap */
+/* Where the scroll starts/ends with a percentage */
+@keyframes scrollText {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+/* Base container setup */
 #foundry-radio .window-content {
     background: transparent;
     display: flex;
     flex-direction: column;
     height: 100%;
+    padding: 0;
     overflow: hidden;
-    /* Prevent inner overflow */
+    font-family: var(--radio-font-family);
 }
 
+/* Root radio container */
 #foundry-radio .foundry-radio {
     display: flex;
     flex-direction: column;
+    flex: 1 1 auto;
     height: 100%;
+    width: 100%;
     background-color: var(--radio-background-color);
     color: var(--radio-text-color);
     padding: 20px;
     border: 2px solid #888;
     border-radius: 8px;
-    width: 300px;
-    font-family: var(--radio-font-family), 'Segoe UI', sans-serif;
+    box-sizing: border-box;
+    font-family: var(--radio-font-family);
     overflow: hidden;
-    /* Prevent overflow from children */
 }
 
+/* Header and currently playing song */
 #foundry-radio .radio-header {
     text-align: center;
     margin-bottom: 10px;
+    flex: 0 0 auto;
 }
 
 #foundry-radio .radio-song {
     text-align: center;
+    width: fit-content;
+    flex: 0 0 auto;
 }
 
+/* Controls wrapper */
 #foundry-radio .radio-controls {
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    flex: 0 0 auto;
     overflow: hidden;
+    min-height: 0;
 }
 
+/* Label and dropdown */
 #foundry-radio .radio-controls label {
     display: block;
     margin-top: 10px;
@@ -91,6 +112,7 @@
     margin-bottom: 10px;
 }
 
+/* Buttons row */
 #foundry-radio .track-controls {
     display: flex;
     justify-content: space-between;
@@ -112,12 +134,16 @@
     background-color: #555;
 }
 
-#foundry-radio .playlist-sounds {
-    flex: 1 1 0;
+/* Scrollable sound list */
+#foundry-radio .playlist {
+    flex: 1 1 auto;
     overflow-y: auto;
-    min-height: 0;
+    /* min-height: 0; */
+    /* max-height: 200px; */
+    /* animation: scrollText 10s linear infinite; */
 }
 
+/* Slider */
 #foundry-radio #volume-slider {
     width: 100%;
 }

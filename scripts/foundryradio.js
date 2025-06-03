@@ -7,7 +7,7 @@ class FoundryRadio extends Application {
             id: foundryRadioModuleName,
             title: 'Foundry Radio',
             resizable: false,
-            width: 600,
+            width: 300,
             height: 400,
             template: "modules/foundry-radio/templates/foundryradio.html",
             classes: ["foundry-radio"]
@@ -22,55 +22,22 @@ class FoundryRadio extends Application {
     }
 
     // activate not active, I am so dumb
-    // activateListeners(html) {
-    //     super.activateListeners(html);
-
-    //     // Select the button and bind the click event
-    //     html.find('#stop-btn').click(() => {
-    //         ui.notifications.warn(`${foundryRadioModuleName} | Stop sound!`)
-    //         _stopCurrentSound(_getPlaylist())
-    //     });
-    //     html.find('#next-btn').click(() => {
-    //         ui.notifications.warn(`${foundryRadioModuleName} | Next sound!`)
-    //         _nextSound(_getPlaylist())
-    //     });
-
-    //     // populate the playlist dropdown
-    //     const $select = html.find('#playlist-select');
-
-    //     for (const playlist of game.playlists.contents) {
-    //         const option = $(`<option value="${playlist.id}">${playlist.name}</option>`);
-    //         $select.append(option);
-    //     };
-
-    //     // populate the list of sounds in the radio
-    //     // const $sounds = html.find('#playlist-sounds');
-    //     $select.on('change', ev => {
-    //         this.selectedPlaylistId = ev.target.value;
-    //         this._renderSoundList(html);
-    //     });
-
-    // }
-
     activateListeners(html) {
         super.activateListeners(html);
 
         // Bind buttons
         html.find('#stop-btn').click(() => {
-            ui.notifications.warn(`${foundryRadioModuleName} | Stop sound!`);
+            // ui.notifications.warn(`${foundryRadioModuleName} | Stop sound!`);
             _stopCurrentSound(_getPlaylist());
         });
         html.find('#next-btn').click(() => {
-            ui.notifications.warn(`${foundryRadioModuleName} | Next sound!`);
+            // ui.notifications.warn(`${foundryRadioModuleName} | Next sound!`);
             _nextSound(_getPlaylist());
         });
 
         // Populate playlist dropdown
         const $select = html.find('#playlist-select');
         $select.empty();
-
-        // If you want a placeholder option uncomment this:
-        // $select.append(`<option value="">Select Playlist</option>`);
 
         // Add playlists
         for (const playlist of game.playlists.contents) {
